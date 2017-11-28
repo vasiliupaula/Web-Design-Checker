@@ -27,3 +27,145 @@ body {
 	font-size:16px;
 	font-family: "MS Shell Dlg 2";
 }
+
+i {
+  cursor: pointer;
+}
+.wdc__container {
+  padding-top: 100px;
+}
+.wdc__container .items {
+  width: 100%;
+}
+.wdc__container .items__item {
+  width: 100%;
+  height: 40px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  font-size: 24px;
+  align-items: center;
+}
+.wdc__container .items__item__fullitem {
+  margin-top: 20px;
+}
+.wdc__container .items__item__subitem {
+  padding: 0 10px;
+  margin-top: -5px;
+  font-size: 16px;
+}
+.wdc__container .items__item--plus {
+  color: #2eec71;
+  width:50%;
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+.wdc__container .items__item--warning {
+  background-color: #f1c40f;
+}
+.wdc__container .items__item--fail {
+  background-color: #e74c3c;
+}
+.wdc__container .items__item--success {
+  background-color: #2ecc71;
+}
+.wdc__container__loader {
+  width: 100%;
+  text-align: center;
+  padding: 40px 0;
+  /*display: none;*/
+}
+.wdc__container__view {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.wdc__container__view__results {
+  width: 50%;
+  display: block;
+  margin: 0 auto;
+  /*display: none;*/
+}
+.wdc__container__view__results__score {
+  font-size: 24px;
+
+}
+.wdc__container__view__input {
+  width: 50%;
+  position: relative;
+}
+.wdc__container__view__input i {
+  position: absolute;
+  top: 9px;
+  right: -8px;
+  color: rgba(0, 0, 0, 0.4);
+  font-size: 20px;
+}
+.wdc__container__view__input input {
+  width: 100%;
+  height: 20px;
+  padding: 10px;
+  font-size: 20px;
+  border: 0;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+  color: rgba(0, 0, 0, 0.8);
+  transition-duration: 0.5s;
+}
+.wdc__container__view__input input:focus {
+  outline: none;
+  border-bottom: 3px solid rgba(0, 0, 0, 0.5);
+}
+.wdc__container__settings {
+  width: 100%;
+  text-align: center;
+  /*display: none;*/
+}
+.wdc__container__logo {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+}
+.wdc__container__logo img {
+  width: 100px;
+}
+.wdc__container__settingsicon {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  color: rgba(255, 255, 255, 0.5);
+}
+.wdc__container .items__item.show-on-settings {
+  /*display: none;*/
+}
+.show-on-settings {
+  /*display: none;*/
+}
+
+.wdc__container__view__header
+{
+  text-align: center;
+  margin-bottom: 0px ;
+  margin-top:10px;
+}
+
+
+.green
+{
+  background-color: green !important; 
+}
+
+.lightgreen
+{
+  background-color: lightgreen !important;
+}
+
+
+.red
+{
+  background-color: red !important;
+}
