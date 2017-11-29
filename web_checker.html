@@ -18,15 +18,16 @@ p {
 </head>
 <body>
  
-<h1>Rapport</h1>
-<p><b>Ce urmarim la un site</b></p>
-1. Siteul sa fie responsive <br />
-2. CSS sa fie valid<br />
-3. HTML validator<br />
+<h1>Raport</h1>
+<p><b>Criteriile dup care evaluam un site</b></p>
+1. Site responsive <br />
+2. CSS valid<br />
+3. HTML validat<br />
 4. Navigabilitatea, Accesibilitatea<br />
 5. Cromatica<br />
 6. Consistenta<br />
 7. Calitate<br />
+-responsive, 
  
 	***Proiectul nostru se poate gasi la adresa: 
 	<a href="https://github.com/vasiliupaula/Web-Design-Checker/pulls">Aici</a>
@@ -38,15 +39,26 @@ xml de catre clientul nostru. Dorit ca pentru clientii nostrii,
 aplicatia sa fie simpla si usor de folosit dar totodata aceasta sa poata 
 satisface dorintele lor.
 <p><b>Modul de realizare</b></p>
-Pe baza linkului pe care il introduce clientul, noi scoate, efectiv
-toate paginile sursa din php, putem folosi in acest sens package-ul <br />
- Guzzle prin care sa facem efectiv 
-requesturi catre site(  http://docs.guzzlephp.org/en/stable/ )
-Putem astfel intera prin sursa paginii, urmarind daca are tag-urile bine inchise, <br />
-JS ul bun pozitionat sau da vreo eroare, daca e scriptul sincron, asincron etc
-Alt lucru pe care il urmarim este rapiditatea cu care putem naviga pe site,
-aici putem lua in calcul, spre exemplu, daca imaginile, video urile sunt prea mari.
-
+<p>  Cu ajutorul extensiei SnappySnippet, putem extrage HTML+CSS dintr un anumit nod specificat </p>
+<p>
+Pentru inceput toata activitatea noastra va incepe cu parsarea continutului din siteul primit spre evaluare.
+Pentru ca acesta sa fie <b>Responsive</b> urmarim ca dimensiunile componentelor sa fie exprimate in procente 
+sau sa avem  secvente de cod ca urmatoarea: @media (max-width: 1020px).Pentru <b>HTML validator </b>urmarim 
+ca toate tagurile sa fie inchise. Putem forma noi reguli pentru a monitoriza modul in care a fost scris 
+html-ul. Pe partea de  <b>css</b>: verificam iar parantezele, verificam daca clasele si idurile sunt apelate corect si daca se respecta sintaxa css.
+(taguri inchise,  idul claselor scris corect)
+Pentru <b>navigabilitatea</b> si <b>accesibilitatea</b> o sa urmarim modul in care sunt ierarhizate paginile:
+daca sunt multe redirectari, daca trecem dintr-o pagina in alta sau daca pagina principala contine cate o redirectare catre fiecare
+pagina componenta si astfel urmarim daca navigam fara tot felu de interventii.
+<b>Cromatica</b> poate fi analizata parcurgand codul sursa si selectand toate culorile care sunt folosite in cod. O problema apare totusi atunci cand
+in loc de css, culoarea poate fi pusa fie din js, fie din din html.
+<b>Rapidiatatea</b> unui site am putea sa o evaluam in raport cu marimea paginilor, marimea pozele, 
+dimensiunea videourilor si dimensiunea volumului de date. Un site cu foarte multe poze de o calitate foarte buna, va avea nevoie de un oarecare 
+timp de incarcare.
+Urmatorul lucru avut in vedere este <b>consistenta</b> pe care o putem afla masurand volumul de date existente. Un site consistent va avea foarte mult
+continut.
+</p>
+<br />
 <p><b>Maniera de interactiune cu utilizatorul</b></p>
 Utilizatorul va putea introduce link-ul site-ului pe care doreste sa il testeze si va putea alege regulile in baza carora se va face evaluarea (poate include/exclude reguli din lista).
 Dupa acesti pasi vor fi afisate rezultatele evaluarii fiecarei reguli (sub forma de punctaje x/y) si eventual descarcat (sub forma unui fisier pdf sau xml).
@@ -73,5 +85,5 @@ Dupa acesti pasi vor fi afisate rezultatele evaluarii fiecarei reguli (sub forma
 </html>
 
 
-<! CSS Start >
+
  <body style="background-color:#cc9c7a">
