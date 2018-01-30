@@ -57,19 +57,6 @@
           function generateEvaluationValues() {
             var myArray = [
               {
-                name: 'Design',
-                subnames: [
-                  { name: 'CSS' },
-                ],
-
-              },
-              {
-                name: 'Usability',
-                subnames: [
-                  { name: 'Alt tags' }
-                ]
-              },
-              {
                 name: 'Functionality',
                 subnames: [
                   { name: 'Errors' }
@@ -80,7 +67,19 @@
                 subnames: [
                   { name: 'Errors' }
                 ]
-              }];
+              }, {
+                name: 'Design',
+                subnames: [
+                  { name: 'CSS' },
+                ],
+
+              },
+              {
+                name: 'Complexity',
+                subnames: [
+                  { name: 'Lines of code and scripts' }
+                ]
+              },];
             return myArray;
           }
           function showHeaderMessage(averageScore) {
@@ -118,24 +117,71 @@
             }
             return score;
           }
-          function calculateDesignScore(htmlArray) { // 1 class -> 50 lines of code
+          function calculateDesignScore(htmlArray, inputString) { // 1 class -> 50 lines of code
             var linesOfHtmlCode = htmlArray.split(/\r\n|\r|\n/).length;
-            var expectedMinumClassesForMaxPoints = linesOfHtmlCode / 150;
-            var numberOfClassesFound = htmlArray.split(/\.[a-z]\w/).length;
-            var string = htmlArray.search('<style>') ;
-            
-            alert(string) ;
-            var finalScore = 0 ; 
-            if (numberOfClassesFound >= expectedMinumClassesForMaxPoints) {
-              finalScore = 100;
-            } else {
-              finalScore = (numberOfClassesFound * 100) / expectedMinumClassesForMaxPoints;
-              finalScore = parseInt(score);
+            var str = htmlArray;
+            var findStr = "<link";
+            var lastIndex = 0;
+            var count = 1;
+            var currentLinkRel = "";
+            var i = 0, cssFound = -1;
+
+            while (lastIndex != -1 && cssFound == -1) {
+              currentLinkRel = "";
+              lastIndex = str.indexOf(findStr, str);
+              while (str[lastIndex] != '>') {
+                currentLinkRel += str[lastIndex];
+                str[lastIndex] = 'X';
+                lastIndex++;
+              }
+              currentLinkRel += '>'; // we have now the current Link Rel we are at
+
+              // alert(currentLinkRel);
+              // WE search for css
+
+              var cssFound = currentLinkRel.search(".css");
+              // alert(cssFound);
+              if (cssFound == -1) {
+                str = str.substr(lastIndex + 1, str.length); // if link rel does not contain css, we go to next link rel
+              } else { // contains css
+                if (currentLinkRel.search('bootstrap') != -1 || currentLinkRel.search('https://') != -1) {
+                  // it has bootstrap and other imported tehnologies
+                  score = 100;
+
+                  return score;
+                }
+                else {
+                  // return 1;
+
+                  var newfindStr = "href=";
+                  var newlastIndex = currentLinkRel.indexOf(newfindStr, currentLinkRel);
+                  newlastIndex += 6; // we get over " or '. Now we have the starting point of href
+                  var cssPath = "";
+                  // console.log(newlastIndex);
+
+                  // console.log(currentLinkRel);
+                  for (var i = newlastIndex; i < cssFound; i++) {
+                    cssPath += currentLinkRel[i];
+                  }
+                  cssPath += '.css';
+
+                  // we have now the PATH of the CSS 
+                  // MAKE HTTP REQUEST TO the path of css
+
+                  var completepath = inputString + "/" + cssPath; // o parcurgem si vedem cate { } are
+                  // alert(completepath);
+                  return 80;
+                }
+              }
             }
-            return finalScore;
-
+            return 100;
           }
-
+          function calculateComplexityScore(htmlArray, inputString) {
+            var linesOfHtmlCode = htmlArray.split(/\r\n|\r|\n/).length;
+            var score = 0.06 * linesOfHtmlCode;
+            if (score > 100) { score = 100 };
+            return score;
+          }
 
           document.getElementById("js_search").onclick = function () {
 
@@ -170,7 +216,7 @@
             xhr.open('GET', inputString, false);
             xhr.send(null);
 
-            console.log(htmlFile) ;
+            // console.log(htmlFile);
             // ------------------------------------
             // GET ALL THE ERRORS OF THE WEBSITE
 
@@ -217,9 +263,21 @@
                     calculatedScore = calculateResponsiveScore(htmlFile);
                     break;
                   case 'Design': // https://responsivedesign.is/examples/
-                    calculatedScore = calculateDesignScore(htmlFile);
+                    calculatedDesignScore = calculateDesignScore(htmlFile, inputString);
+                    //alert(calculateDesignScore);
+                    if (calculatedDesignScore == 100) {
+                      message += ` Bootstrap or other CSS libraries found`;
+                    }
+                    calculatedScore = calculatedDesignScore - (calculateErrorScore(errorsFile, htmlFile) / 10);
+                    calculatedScore = parseInt(calculatedScore);
+
                     break;
-                  default: calculatedScore = Math.floor(Math.random() * 100) + 1;
+                  case 'Complexity': // https://responsivedesign.is/examples/
+                    calculatedScore = calculateComplexityScore(htmlFile, inputString);
+                    calculatedScore = parseInt(calculatedScore);
+
+                    break;
+                  default: calculatedScore = 60;
                 }
                 // console.log(calculatedScore);
                 totalScore += calculatedScore;
