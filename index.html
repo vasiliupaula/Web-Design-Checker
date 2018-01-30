@@ -1,153 +1,279 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="https://cdn.iconscout.com/public/images/icon/premium/png-512/checker-plagiarism-plagiarismchecker-success-3d18c1ccd377262a-512x512.png">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="index.css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700" rel="stylesheet">
-    <script src="./index.js"></script>
-    <title>Web Design Checker</title>
-   
-  </head>
-  <body>
-   	 <div class="wdc__container">
-      <div class="wdc__container__logo">
-        <img src="./logo.png" alt="logo" />
-      </div>
 
-      <div class="wdc__container__view" id="js_view">
-        <div class="wdc__container__view__input" id="js_input">
-          <input type="url" id="js_input_string" />
-          <i class="fa fa-search" id="js_search"></i>
-        </div>
-      </div>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="https://cdn.iconscout.com/public/images/icon/premium/png-512/checker-plagiarism-plagiarismchecker-success-3d18c1ccd377262a-512x512.png">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="index.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700" rel="stylesheet">
+  <script src="./index.js"></script>
+  <title>Web Design Checker</title>
 
-      <h1 class="wdc__container__view__header"></h1>
+</head>
 
-      <div class="wdc__container__view__results" id="js_results">
-        <div class="wdc__container__view__results__score"></div>
-        <div class="items">
-          <div id="printRatings"></div>
-        </div>
+<body>
+  <div class="wdc__container">
+    <div class="wdc__container__logo">
+      <img src="./logo.png" alt="logo" />
+    </div>
+
+    <div class="wdc__container__view" id="js_view">
+      <div class="wdc__container__view__input" id="js_input">
+        <input type="url" id="js_input_string" />
+        <i class="fa fa-search" id="js_search"></i>
       </div>
     </div>
 
-     <div class="wdc__container__loader" id="js_loader" style="display:none">
-        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+    <h1 class="wdc__container__view__header"></h1>
+
+    <div class="wdc__container__view__results" id="js_results">
+      <div class="wdc__container__view__results__score"></div>
+      <div class="items">
+        <div id="printRatings"></div>
       </div>
-    
-   
- 
-	<div class="help">
-		<div>
-			<img src="./help.png" alt="help" width="45" height="45"  onmouseover="help(1)" onmouseout="help(2)">
-		</div><a>
-		<div id="text_hover">
-			Enter the address of any website and we <br> will give you a report scoring the website.
-		</div>
-	 <div>
-	
-		 
-    <script>
-      function generateEvaluationValues()
-      {
-        var myArray = [
-        {
-          name: 'Design',
-          subnames: [
-            { name: 'CSS' },
-            { name: 'Responsive' }
-          ]
-        },
-        {
-          name: 'Usability',
-          subnames: [
-            { name: 'Alt tags' }
-          ]
-        },
-        {
-          name: 'Functionality',
-          subnames: [
-            { name: 'News feed' }
-          ]
-        }];
-        return myArray;
-      }
-      function showHeaderMessage(averageScore)
-      {
-      var Header = document.getElementById("js_input_string").value;
-        var Message = `Average score : ${averageScore}`;
-        document.getElementsByClassName("wdc__container__view__header")[0].innerHTML= Message ;
-      }
-      function isUrl(s) {
-        var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
-   return regexp.test(s);
-}
-      document.getElementById("js_search").onclick = function() {
+    </div>
+  </div>
 
-        inputString = document.getElementById('js_input_string').value;
-        if ( inputString.length == 0 )
-        {
-          alert('Please insert url');
-          return;
-        }
-        else
-        {
-          if ( !isUrl(inputString) )
-          {
-            alert('Invalid url');
-            return;
+  <div class="wdc__container__loader" id="js_loader" style="display:none">
+    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+  </div>
+
+
+
+  <div class="help">
+    <div>
+      <img src="./help.png" alt="help" width="45" height="45" onmouseover="help(1)" onmouseout="help(2)">
+    </div>
+    <a>
+      <div id="text_hover">
+        Enter the address of any website and we <br> will give you a report scoring the website.
+      </div>
+      <div>
+
+
+        <script>
+          function generateEvaluationValues() {
+            var myArray = [
+              {
+                name: 'Design',
+                subnames: [
+                  { name: 'CSS' },
+                ],
+
+              },
+              {
+                name: 'Usability',
+                subnames: [
+                  { name: 'Alt tags' }
+                ]
+              },
+              {
+                name: 'Functionality',
+                subnames: [
+                  { name: 'Errors' }
+                ]
+              },
+              {
+                name: 'Responsive',
+                subnames: [
+                  { name: 'Errors' }
+                ]
+              }];
+            return myArray;
           }
-        }
-        document.getElementById("js_loader").style.display='block';
-        setTimeout(function(){
-
-        var toEvaluate = generateEvaluationValues(); 
-        var template = "", averageScore=0, totalScore=0, count=0, color = "red" , result = "Bad" ;
-       toEvaluate.forEach(function(item) {
-          
-          var randomScore = Math.floor(Math.random() * 100) + 1  ;
-          totalScore+= randomScore;
-          count++;
-          switch(true){
-            case (randomScore>= 70):
-              color = "green" ;
-              result = "Good"
-              break;
-            case (randomScore>= 45 && randomScore < 70):
-              color ="lightgreen" ;
-              result = "Decent" ;
-              break;
-              default: color="red" ; result="Bad" ;
+          function showHeaderMessage(averageScore) {
+            var Header = document.getElementById("js_input_string").value;
+            var Message = `Average score : ${averageScore}`;
+            document.getElementsByClassName("wdc__container__view__header")[0].innerHTML = Message;
           }
-          averageScore= Math.floor(totalScore/count);
-          showHeaderMessage(averageScore);
+          function isUrl(s) {
+            var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+            return regexp.test(s);
+          }
+          function calculateErrorScore(errorArray, htmlArray) {
+            // console.log(errorArray);
+            var errorCount = errorArray.messages.length;
+            var linesOfHtmlCode = htmlArray.split(/\r\n|\r|\n/).length;
+            // console.log(linesOfHtmlCode);
+            // console.log(errorCount);
+            var errorPercentFromTotal = (100 * errorCount) / linesOfHtmlCode;
+            var goodCodeFromTotal = 100 - (4 * errorPercentFromTotal);
 
-          template += `<div class="items__item items__item__fullitem ${color}">
+            finalScore = parseInt(goodCodeFromTotal);
+            return finalScore;
+          }
+
+          function calculateResponsiveScore(htmlArray) { // 1 media per 300 lines of code
+            var mediaAparitions = htmlArray.split('@media').length;
+            var linesOfHtmlCode = htmlArray.split(/\r\n|\r|\n/).length;
+            var expectedMinumMediasForMaxPoints = linesOfHtmlCode / 300;
+            var score = 0;
+            if (mediaAparitions >= expectedMinumMediasForMaxPoints) {
+              score = 100;
+            } else {
+              score = (mediaAparitions * 100) / expectedMinumMediasForMaxPoints;
+              score = parseInt(score);
+            }
+            return score;
+          }
+          function calculateDesignScore(htmlArray) { // 1 class -> 50 lines of code
+            var linesOfHtmlCode = htmlArray.split(/\r\n|\r|\n/).length;
+            var expectedMinumClassesForMaxPoints = linesOfHtmlCode / 150;
+            var numberOfClassesFound = htmlArray.split(/\.[a-z]\w/).length;
+            var string = htmlArray.search('<style>') ;
+            
+            alert(string) ;
+            var finalScore = 0 ; 
+            if (numberOfClassesFound >= expectedMinumClassesForMaxPoints) {
+              finalScore = 100;
+            } else {
+              finalScore = (numberOfClassesFound * 100) / expectedMinumClassesForMaxPoints;
+              finalScore = parseInt(score);
+            }
+            return finalScore;
+
+          }
+
+
+          document.getElementById("js_search").onclick = function () {
+
+            // ------------------------------------
+            // CHECK IF INPUT IS URL
+
+            var inputString = document.getElementById('js_input_string').value;
+            if (inputString.length == 0) {
+              alert('Please insert url');
+              return;
+            }
+            else {
+              if (!isUrl(inputString)) {
+                alert('Invalid url');
+                return;
+              }
+            }
+            // alert(inputString) ;
+
+            // ------------------------------------
+            // IF URL WORKS, GET THE HTML FILE FROM URL
+
+            var htmlFile = "";
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+              if (xhr.readyState == XMLHttpRequest.DONE) {
+                htmlFile = xhr.responseText; // htmlFile now contains all the code
+                //  alert(htmlFile);
+
+              }
+            }
+            xhr.open('GET', inputString, false);
+            xhr.send(null);
+
+            console.log(htmlFile) ;
+            // ------------------------------------
+            // GET ALL THE ERRORS OF THE WEBSITE
+
+
+            var verifyPath = `https://validator.nu/?doc=${inputString}&out=json`;
+
+            var errorsFile = "";
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+              if (xhr.readyState == XMLHttpRequest.DONE) {
+                errorsFile = xhr.responseText; // htmlFile now contains all the code
+
+              }
+            }
+            xhr.open('GET', verifyPath, false);
+            xhr.send(null);
+
+            errorsFile = JSON.parse(errorsFile);
+
+            document.getElementById("js_loader").style.display = 'block';
+            setTimeout(function () {
+
+              var toEvaluate = generateEvaluationValues();
+              var template = "", averageScore = 0, totalScore = 0, count = 0, color = "red", result = "Bad";
+              toEvaluate.forEach(function (item) {
+
+                var message = "";
+                switch (item.name) {
+                  case 'Functionality': // http://acvaria.com 
+                    calculatedScore = calculateErrorScore(errorsFile, htmlFile);
+                    // console.log(errorsFile);
+
+                    for (var i = 0; i <= 4; i++) {
+                      message += ` Error ${i + 1}: `;
+                      message += errorsFile.messages[i].message.substring(0, 35);
+                      message += "..";
+                      message += "\n";
+
+                    }
+                    message += `.. and  ${errorsFile.messages.length - 5} other errors !! \n`;
+
+                    break;
+                  case 'Responsive': // https://responsivedesign.is/examples/
+                    calculatedScore = calculateResponsiveScore(htmlFile);
+                    break;
+                  case 'Design': // https://responsivedesign.is/examples/
+                    calculatedScore = calculateDesignScore(htmlFile);
+                    break;
+                  default: calculatedScore = Math.floor(Math.random() * 100) + 1;
+                }
+                // console.log(calculatedScore);
+                totalScore += calculatedScore;
+                count++;
+                switch (true) {
+                  case (calculatedScore >= 70):
+                    color = "green";
+                    result = "Good"
+                    break;
+                  case (calculatedScore >= 45 && calculatedScore < 70):
+                    color = "lightgreen";
+                    result = "Decent";
+                    break;
+                  default: color = "red"; result = "Bad";
+                }
+                averageScore = Math.floor(totalScore / count);
+                showHeaderMessage(averageScore);
+
+
+
+                template += `<div class="items__item items__item__fullitem ${color}">
                     <i class="fa fa-warning"></i>
                     <h6>${item.name}</h6>
-                    <h6> ${randomScore} / 100</h6></div>`;
-             var subItems = item.subnames.forEach(function(x) {
-                template+=`
+                    <h6> ${calculatedScore} / 100</h6> </div>`;
+                var subItems = item.subnames.forEach(function (x) {
+                  template += `
                   <div class="items__item items__item__subitem">
                     <h6>${x.name}</h6>
                     <h6> ${result} </h6>
                   </div>`;
-            });
-        document.getElementById("printRatings").innerHTML= "";
-        document.getElementById("printRatings").insertAdjacentHTML('beforeend', template);
-        document.getElementById("js_loader").style.display='none';
-      })
-        }, 2000);}
-        function help(x)
-	  {
-		if(x==1)
-			document.getElementById("text_hover").style.visibility = "visible";	
-		else
-			document.getElementById("text_hover").style.visibility = "hidden";	
-	  }
-    </script>
-  </body>
+                  if (item.name == 'Functionality') {
+                    template += ` <div class="items__item items__item__message_bigger">
+                    <p>${message}</p>
+                  </div>`;
+                  } else {
+                    template += ` <div class="items__item items__item__message">
+                    <p>${message}</p>
+                  </div>`;
+                  }
+
+                });
+                document.getElementById("printRatings").innerHTML = "";
+                document.getElementById("printRatings").insertAdjacentHTML('beforeend', template);
+                document.getElementById("js_loader").style.display = 'none';
+              })
+            }, 2000);
+          }
+          function help(x) {
+            if (x == 1)
+              document.getElementById("text_hover").style.visibility = "visible";
+            else
+              document.getElementById("text_hover").style.visibility = "hidden";
+          }
+        </script>
+</body>
+
 </html>

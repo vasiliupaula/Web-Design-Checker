@@ -56,6 +56,18 @@ i {
   margin-top: -5px;
   font-size: 16px;
 }
+.wdc__container .items__item__message {
+  padding: 0 10px;
+  margin-top: -5px;
+  font-size: 13px;
+  height:15px;
+}
+.wdc__container .items__item__message_bigger {
+  padding: 0 10px;
+  margin-top: -5px;
+  font-size: 13px;
+  height:95px;
+}
 .wdc__container .items__item--plus {
   color: #2eec71;
   width:50%;
